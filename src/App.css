@@ -1,0 +1,16 @@
+.Designs{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card{
+  width: 30%;
+  padding: 25px;
+}
+
+.card-image{
+  width: 100%;
+}
+
