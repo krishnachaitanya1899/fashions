@@ -82,7 +82,7 @@ const Table = () => {
     
 
 
-    
+    console.log(products)
         return (
             <div className="ag-theme-alpine" style={{height: 400, width: '100%'}}>
                 {/* <AgGridReact

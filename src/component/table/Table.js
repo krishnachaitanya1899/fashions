@@ -12,11 +12,22 @@ const Table2 = () => {
   const [carData, setCars] = useState([]);
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
-
+  const [columnDefs] = useState([
+    { field: 'id', editable: true },
+    { field: 'make', editable: true },
+    { field: 'model', editable: true }
+  ]);
+const [columnDefsOrder] = useState([
+    { field: 'order_id' , editable:true},
+    { field: 'customer_name' ,editable:true},
+    { field: 'total_amount' ,editable:true},
+    { field: 'product_id' ,editable:true},
+    { field: 'product_name' ,editable:true}
+    
+]);
   useEffect(() => {
     // Connect to the server using Socket.IO
     const socket = io("http://localhost:3001");
-
     // Listen for updates from the server
     socket.on('carData', (data) => {
       // Update the state with the updated car data
@@ -31,11 +42,7 @@ const Table2 = () => {
 
   const queryClient = useQueryClient();
 
-  const [columnDefs] = useState([
-    { field: 'id', edi2: true },
-    { field: 'name', editable: true },
-    { field: 'price', editable: true }
-  ]);
+
 
   const handleCellValueChanged = (event) => {
     // Get the updated data from the event
@@ -44,7 +51,7 @@ const Table2 = () => {
 
     // Make your API call here to update the backend server with the new data
     // For example:
-    fetch('http://localhost:3001/products', {
+    fetch('http://localhost:3001/cars', {
       method: 'POST',
       body: JSON.stringify(updatedData),
       headers: {
@@ -85,23 +92,24 @@ const Table2 = () => {
   //     return <p>Loading...</p>;
   //   }
   //   if(data){
+    console.log("carData", carData)
   return (
-    <div>
+    <div className="ag-theme-alpine" style={{height: 400, width: '100%'}}>
       <hr></hr>
       <h1>Products</h1>
       <AgGridReact
-        rowData={products}
+        rowData={carData}
         columnDefs={columnDefs}
         onCellValueChanged={handleCellValueChanged}
       >
       </AgGridReact>
-      <h1>orders</h1>
-      <AgGridReact
-        rowData={orders}
-        columnDefs={columnDefs}
+      {/* <h1>orders</h1> */}
+      {/* <AgGridReact
+        rowData={carData}
+        columnDefs={columnDefsOrder}
         onCellValueChanged={handleCellValueChanged}
       >
-      </AgGridReact>
+      </AgGridReact> */}
     </div>
 
   );
